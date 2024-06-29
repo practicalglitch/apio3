@@ -107,7 +107,6 @@ public class ApiO3 {
 		String rawHtml = http.Get(url);
 		if(rawHtml == null)
 			return null;
-		System.out.println(rawHtml);
 		var chapterData = Interpreter.GetChapterContents(rawHtml);
 		var chapter = new WorkChapter();
 		
