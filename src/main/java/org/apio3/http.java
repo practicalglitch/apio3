@@ -19,8 +19,10 @@ public class http {
 			reader.close();
 			return sb.toString();
 		} catch (IOException e) {
+			System.out.println("Failed to http get!");
+			System.out.println(e);
 			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 }

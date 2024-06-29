@@ -69,13 +69,13 @@ public class ApiO3 {
 		System.out.println("URL: " + urlWork);
 		
 		String rawHtml = null;
-		for(int i = 0; i < 10; i++) {
+		for(int i = 0; i < 2; i++) {
 			rawHtml = http.Get(urlWork);
 			// I don't even know anymore.
 			assert rawHtml != null;
 			if(!rawHtml.contains("adult content"))
 				break;
-			if(i == 9)
+			if(i == 1)
 				System.out.println("Fuck!");
 		}
 		
@@ -103,10 +103,11 @@ public class ApiO3 {
 	}
 	
 	public static WorkChapter DownloadSingleChapter(String id){
-		String url = "https://archiveofourown.org/chapters/" + id;
+		String url = "https://archiveofourown.org/chapters/" + id + "?view_adult=true";
 		String rawHtml = http.Get(url);
 		if(rawHtml == null)
 			return null;
+		System.out.println(rawHtml);
 		var chapterData = Interpreter.GetChapterContents(rawHtml);
 		var chapter = new WorkChapter();
 		

@@ -7,7 +7,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
 
-import java.io.Console;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -394,8 +393,19 @@ public class Interpreter {
 			
 			work.Title = preface.getElementsByClass("title heading").first().text();
 			Element author = preface.getElementsByAttributeValue("rel", "author").first();
-			work.AuthorLoc = author.attributes().get("href");
-			work.Author = author.text();
+			try {
+				work.AuthorLoc = author.attributes().get("href");
+			} catch (Exception ignored) {
+				work.AuthorLoc = "";
+			}
+		
+			try {
+				work.Author = author.text();
+			} catch (Exception ignored) {
+				work.Author = "Anonymous";
+			}
+			
+			
 			
 			work.Summary = preface.getElementsByClass("summary module").first().getElementsByClass("userstuff").first().html();
 			
