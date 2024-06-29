@@ -10,9 +10,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
+    testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    // jsoup HTML parser library @ https://jsoup.org/
     implementation("org.jsoup:jsoup:1.17.1")
 }
 

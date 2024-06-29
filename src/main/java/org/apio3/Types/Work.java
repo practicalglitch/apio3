@@ -1,7 +1,5 @@
 package org.apio3.Types;
 
-import java.time.LocalDate;
-
 public class Work {
 	public String Id;
 	public String Title;
