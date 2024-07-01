@@ -60,27 +60,32 @@ public class ApiO3 {
 			return null;
 		return Interpreter.GetTitlesDatesID(rawNavigation);
 	}
-	
+
 	// Gets all metadata of the work
-	public static Work GetWorkMetadata(String workId){
+	public static Work GetWorkMetadata(String workId) {
 		// Put view adult to prevent annoying screen
 		System.out.println("Getting workid: " + workId);
 		String urlWork = "https://archiveofourown.org/works/" + workId + "?view_adult=true";
 		System.out.println("URL: " + urlWork);
+
+		String rawHtml = http.Get(urlWork);
 		
-		String rawHtml = null;
-		for(int i = 0; i < 2; i++) {
-			rawHtml = http.Get(urlWork);
-			// I don't even know anymore.
-			assert rawHtml != null;
-			if(!rawHtml.contains("adult content"))
-				break;
-			if(i == 1)
-				System.out.println("Fuck!");
+		// If we get the adult content warning screen *still*, find the yes continue button and redirect
+		if (rawHtml.contains("adult content")) {
+			var htmlLines = rawHtml.split("\n");
+			for (int i = 0; i < htmlLines.length; i++) {
+				if (htmlLines[i].contains("Yes, Continue</a>")) {
+					var newUrl = htmlLines[i];
+					newUrl = newUrl.replace("<a href=\"", "");
+					newUrl = newUrl.replace("\">Yes, Continue</a>", "");
+					rawHtml = http.Get("https://archiveofourown.org" + newUrl);
+				}
+			}
 		}
-		
+
 		return Interpreter.GetWorkMetadata(rawHtml, workId);
 	}
+	
 	
 	// Downloads one chapter based on chapter ID
 	// Get chapter IDs via getchaptermetadatas
