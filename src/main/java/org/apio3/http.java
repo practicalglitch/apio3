@@ -1,28 +1,23 @@
 package org.apio3;
 import java.io.*;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 public class http {
 	public static String Get(String URL){
+		String content = null;
+		URLConnection connection = null;
 		try {
-			URL url = new URL(URL);
-
-			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-			StringBuilder sb = new StringBuilder();
-			String line;
-			while ((line = reader.readLine()) != null) {
-				sb.append(line).append("\n");
-			}
-
-			reader.close();
-			return sb.toString();
-		} catch (IOException e) {
-			System.out.println("Failed to http get!");
-			System.out.println(e);
-			e.printStackTrace();
-			return null;
+			connection =  new URL(URL).openConnection();
+			Scanner scanner = new Scanner(connection.getInputStream());
+			scanner.useDelimiter("\\Z");
+			content = scanner.next();
+			scanner.close();
+		}catch ( Exception ex ) {
+			ex.printStackTrace();
 		}
+		return content;
 	}
 }
