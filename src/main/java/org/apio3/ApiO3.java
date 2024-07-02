@@ -14,7 +14,12 @@ public class ApiO3 {
 	// Give tag and page, will return list of works
 	// Cannot handle search queries
 	public static Work[] GetListOfRecentWorks(String tag, int page){
-		String url = "https://archiveofourown.org/tags/" + tag + "/works";
+		String url = "";
+		if(tag.matches("\\/tags\\/.+\\/works"))
+			url = "https://archiveofourown.org" + tag;
+		else
+			url = "https://archiveofourown.org/tags/" + tag + "/works";
+		System.out.println(url);
 		if(page > 1)
 			url = url + "?page=" + page;
 		String rawHtml = http.Get(url);
