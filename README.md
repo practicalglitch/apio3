@@ -1,6 +1,8 @@
 # apio3
 Java API for AO3
 
+Uses jsoup to retrieve data (AKA: This is a web scraper! It comes with all the oddities of one.)
+
 See the ApiO3 class for the available functions.
 
 In heavy beta. Everything is subject to change and may be prone to error.
