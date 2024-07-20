@@ -1,4 +1,4 @@
-# apio3
+# api of our own
 Java API for AO3
 
 Uses jsoup to retrieve data (AKA: This is a web scraper! It comes with all the oddities of one.)
@@ -11,3 +11,7 @@ In heavy beta. Everything is subject to change and may be prone to error.
 ## Building
 
 Build using Java 17, and use Gradle to build a jar.
+
+
+
+Not in any way affiliated with the devs of AO3.
