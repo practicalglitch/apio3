@@ -356,6 +356,9 @@ public class Interpreter {
 			
 			work.Category = getTagToList(metaData.getElementsByClass("category tags"));
 			
+			if(work.Category == null)
+				work.Category = new String[] {};
+			
 			//Fandoms
 			
 			Elements fandomElements = metaData.getElementsByClass("fandom tags").last().getElementsByClass("tag");
