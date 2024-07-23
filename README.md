@@ -12,6 +12,8 @@ In heavy beta. Everything is subject to change and may be prone to error.
 
 Build using Java 17, and use Gradle to build a jar.
 
+## Usage
 
+See wiki for api details.
 
 Not in any way affiliated with the devs of AO3.
