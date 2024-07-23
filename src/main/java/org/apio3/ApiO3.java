@@ -18,7 +18,7 @@ public class ApiO3 {
 		if(tag.matches("\\/tags\\/.+\\/works"))
 			url = "https://archiveofourown.org" + tag;
 		else
-			url = "https://archiveofourown.org/tags/" + tag + "/works";
+			url = "https://archiveofourown.org/tags/" + tag + "/works?view_adult=true";
 		System.out.println(url);
 		if(page > 1)
 			url = url + "?page=" + page;
@@ -31,7 +31,7 @@ public class ApiO3 {
 	// Downloads all chapter data of a work, body and all
 	public static WorkChapter[] DownloadWholeWork(String workId){
 		
-		String urlWork = "https://archiveofourown.org/works/" + workId;
+		String urlWork = "https://archiveofourown.org/works/" + workId + "?view_adult=true";
 		String rawHtml = http.Get(urlWork);
 		if(rawHtml == null)
 			return null;
@@ -42,7 +42,7 @@ public class ApiO3 {
 			return null;
 		WorkChapter[] chapterMetadatas = Interpreter.GetTitlesDatesID(rawNavigation);
 		
-		String urlDownload = Interpreter.GetDownloadUrl(rawHtml);
+		String urlDownload = Interpreter.GetDownloadUrl(rawHtml) + "?view_adult=true";
 		String rawHtmlDownload = http.Get(urlDownload);
 		if(rawHtmlDownload == null)
 			return null;
@@ -59,7 +59,7 @@ public class ApiO3 {
 	
 	// gets all chapter metadata, does not download body + info
 	public static WorkChapter[] GetChapterMetadatas(String workId){
-		String urlNaviagtion = "https://archiveofourown.org/works/" + workId + "/navigate";
+		String urlNaviagtion = "https://archiveofourown.org/works/" + workId + "/navigate?view_adult=true";
 		String rawNavigation = http.Get(urlNaviagtion);
 		if(rawNavigation == null)
 			return null;
@@ -98,7 +98,7 @@ public class ApiO3 {
 	// return true if works
 	public static boolean DownloadSingleChapter(WorkChapter chapter){
 		// /works/49788343/chapters/126257599
-		String url = "https://archiveofourown.org/works/" + chapter.WorkID + "/chapters/" + chapter.ChapterID;
+		String url = "https://archiveofourown.org/works/" + chapter.WorkID + "/chapters/" + chapter.ChapterID + "?view_adult=true";
 		String rawHtml = http.Get(url);
 		if(rawHtml == null)
 			return false;
