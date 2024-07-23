@@ -11,6 +11,7 @@ public class http {
 		URLConnection connection = null;
 		try {
 			connection =  new URL(URL).openConnection();
+			connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36");
 			Scanner scanner = new Scanner(connection.getInputStream());
 			scanner.useDelimiter("\\Z");
 			content = scanner.next();
