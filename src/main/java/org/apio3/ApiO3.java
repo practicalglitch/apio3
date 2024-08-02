@@ -19,9 +19,22 @@ public class ApiO3 {
 			url = "https://archiveofourown.org" + tag;
 		else
 			url = "https://archiveofourown.org/tags/" + tag + "/works?view_adult=true";
-		System.out.println(url);
 		if(page > 1)
 			url = url + "?page=" + page;
+		String rawHtml = http.Get(url);
+		if(rawHtml == null)
+			return null;
+		return Interpreter.GetWorksList(rawHtml);
+	}
+
+	// Note that recent works do NOT have creation date. The date is set to Epoch.
+	// Give tag and page, will return list of works
+	public static Work[] Query(String query, int page){
+		String url = "https://archiveofourown.org/works/search?";
+		if(page > 1)
+			url = url + "page=" + page + "&";
+		url = url + "work_search%5Bquery%5D=" + query.replace(" ", "+").toLowerCase();
+		
 		String rawHtml = http.Get(url);
 		if(rawHtml == null)
 			return null;

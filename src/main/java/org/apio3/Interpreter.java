@@ -13,7 +13,7 @@ import java.util.*;
 
 public class Interpreter {
 	
-	public static DateTimeFormatter AO3ListDateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
+	public static DateTimeFormatter AO3ListDateFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
 	
 	// Returns list of works given a URL that shows lists of works.
 	public static Work[] GetWorksList(String html) {
@@ -46,7 +46,8 @@ public class Interpreter {
 			FillBasicStats(stats, work);
 			
 			//Date Updated
-			work.DateUpdated = LocalDate.parse(article.getElementsByClass("datetime").first().text(), AO3ListDateFormat).format(DateTimeFormatter.ISO_LOCAL_DATE);
+			String rawText = article.getElementsByClass("datetime").first().text();
+			work.DateUpdated = LocalDate.parse(rawText, AO3ListDateFormat).format(DateTimeFormatter.ISO_LOCAL_DATE);
 			
 			//Date published isnt fucking put here...
 			work.DatePublished = LocalDate.EPOCH.format(DateTimeFormatter.ISO_LOCAL_DATE); // thisll have no consequences
@@ -81,6 +82,11 @@ public class Interpreter {
 						break;
 					}
 				}
+				
+				// if all else fails, just make empty array
+				if(work.Category == null)
+					work.Category = new String[0];
+				
 				// Finished-ness
 				else if(tagtext.equals("Work In Progress"))
 					work.Finished = false;
