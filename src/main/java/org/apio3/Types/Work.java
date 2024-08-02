@@ -10,9 +10,10 @@ public class Work {
 	public static String[] ValidRatings = new String[] {
 			"General Audiences",
 			"Teen And Up Audiences",
-			"Not Rated",
+			"Mature",
 			"Explicit",
-			"Mature"
+			"Not Rated"
+			
 	};
 	public String[] Category;
 	public static String[] ValidPairings = new String[] {
